@@ -49,7 +49,8 @@ def update_fan_speed(idx, speeds: dict):
     logging.info(f"GPU{idx}: {gpu_temp} °C")
     if gpu_speed != target_speed:
         fan_count = pynvml.nvmlDeviceGetNumFans(handle)
-        pynvml.nvmlDeviceSetFanSpeed_v2(handle, 0, target_speed)
+        for fan in range(fan_count):
+            pynvml.nvmlDeviceSetFanSpeed_v2(handle, fan, target_speed)
         logging.info(f"Set fan of GPU{idx} to {target_speed}%")
 
 
